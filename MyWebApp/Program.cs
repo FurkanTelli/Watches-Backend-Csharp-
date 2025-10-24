@@ -30,14 +30,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-////  Veritabanı otomatik oluşturulsun
-//using (var scope = app.Services.CreateScope())
-//{
-//    var db = scope.ServiceProvider.GetRequiredService<Context>();
-//    db.Database.Migrate();
-//}
-
-
 
 
 // Configure the HTTP request pipeline.
