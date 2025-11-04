@@ -7,5 +7,6 @@ namespace MyWebApp.Models
         public Context(DbContextOptions<Context> options) : base(options) { }
 
         public DbSet<Watch> WatchesTable { get; set; }
+        public DbSet<User> UsersTable { get; set; }
     }
 }
