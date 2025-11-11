@@ -9,12 +9,12 @@ namespace MyWebApp.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        // Veritabanı işlemlerinde kullanacağımız Context nesnesi (dependency injection ile geliyor)
+        // The Context object we will use in database operations (comes with dependency injection)
         private readonly Context _context;
 
 
 
-        // Constructor — Controller oluşturulurken Context otomatik olarak enjekte edilir
+        // Constructor — Context is automatically injected when creating the Controller
         public ProductController(Context context)
         {
             _context = context;
@@ -24,12 +24,12 @@ namespace MyWebApp.Controllers
         public async Task<IActionResult> Get()
         {
 
-            // Tüm kayıtları veritabanından asenkron şekilde alıyoruz
+            // We retrieve all records from the database asynchronously
             var allWatches = await _context.WatchesTable.ToListAsync();
 
 
 
-            // 200 OK cevabı ile birlikte verileri döndürüyoruz
+            // Return all records with 200 OK
             return Ok(allWatches);
         }
 
@@ -37,14 +37,15 @@ namespace MyWebApp.Controllers
         public async Task<IActionResult> GetById(Guid id)
         {
 
-            // id parametresiyle gelen GUID değerine göre veritabanından kayıt arıyoruz
+            /* We are searching for a record in the database based on the GUID value 
+            that comes with the id parameter. */
             var watch = await _context.WatchesTable.FindAsync(id);
 
 
-            // Eğer kayıt bulunmazsa 404 Not Found döneriz
+            // If no record is found we return 404 Not Found
             if (watch == null) return NotFound();
 
-            // Bulunan kaydı 200 OK ile geri 
+            // Return the found record with 200 OK
             return Ok(watch);
         }
 
@@ -52,8 +53,8 @@ namespace MyWebApp.Controllers
 
         public async Task<IActionResult> AddNewWatch([FromBody] dynamic body)
         {
-            // [FromBody] → Gövde (body) kısmından JSON olarak veri alır
-            // newWatch → Frontend veya Postman'den gelen veri burada tutulur
+            // [FromBody] → Retrieves data from the body section as JSON.
+            // newWatch → Data from the Frontend or Postman is stored here.
             Console.WriteLine(body);
             var newWatch = new Watch
             {
@@ -61,7 +62,7 @@ namespace MyWebApp.Controllers
                 WatchName = body.GetProperty("watchname").GetString(),
                 WatchBrand = body.GetProperty("watchbrand").GetString(),
                 Price = body.GetProperty("price").GetDecimal(),
-                Img = body.GetProperty("imgAdress").GetString() // JSON’daki alan adıyla eşleşiyor 👈
+                Img = body.GetProperty("imgAdress").GetString() 
             };
 
             await _context.WatchesTable.AddAsync(newWatch);
