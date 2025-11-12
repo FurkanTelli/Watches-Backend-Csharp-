@@ -5,6 +5,7 @@ using MyWebApp.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 
 namespace MyWebApp.Controllers
 {
@@ -60,14 +61,21 @@ namespace MyWebApp.Controllers
 
 
 
-            var user = await _context.UsersTable.Where(u => u.UserName == userName && u.UserEmail == email && u.UserPassword == password)
-           .Select(u => new
-           {
-               u.UserId,
-               u.UserName,
-               u.UserEmail
-           })
-           .FirstOrDefaultAsync();
+            // var user = await _context.UsersTable
+            //.Where(u => u.UserName == userName && u.UserEmail == email && u.UserPassword == password)
+            //.Select(u => new
+            //{
+            //    u.UserId,
+            //    u.UserName,
+            //    u.UserEmail
+            //})
+            //.FirstOrDefaultAsync();
+
+            var user = await _context.UsersTable
+                .FirstOrDefaultAsync(u =>
+                u.UserName == userName &&
+                u.UserEmail == email &&
+                u.UserPassword == password);
 
 
             if (user == null) return Unauthorized("Username or password is incorrect");
@@ -75,10 +83,50 @@ namespace MyWebApp.Controllers
             var generateToken = GenerateJwtToken(user.UserId.ToString(), user.UserName, user.UserEmail);
 
             return Ok(
-                new {generateToken, user = new {user.UserId,user.UserName,user.UserEmail}
-            });
+                new
+                {
+                    generateToken,
+                    user = new { user.UserId, user.UserName, user.UserEmail }
+                });
 
         }
+
+
+
+        [HttpPost("createUser")]
+        public async Task<IActionResult> CreateUser([FromBody] JsonElement body)
+        {
+
+            Console.WriteLine(body);
+            var email = body.GetProperty("email").GetString();
+            var userName = body.GetProperty("userName").GetString();
+            var password = body.GetProperty("password").GetString();
+
+
+            var isEmailExist = await _context.UsersTable.FirstOrDefaultAsync(u => u.UserEmail == email);
+
+            if (isEmailExist != null)
+            {
+                return BadRequest("Email is already in use");
+            }
+
+            var newUser = new User
+            {
+                UserId = Guid.NewGuid(),
+                UserName = userName,
+                UserEmail = email,
+                UserPassword = password,
+            };
+
+
+            _context.Add(newUser);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetUser), new {id = newUser.UserId }, newUser);
+        }
+
+
+
 
 
         [HttpPost("logout")]
