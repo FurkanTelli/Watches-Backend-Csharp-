@@ -1,5 +1,5 @@
 -    ## [net8.0]:
-   Top-level Package                                    Requested   Resolved
+   - # Packages
    - > Microsoft.AspNetCore.Authentication.JwtBearer      8.0.0       8.0.0
    - > Microsoft.Data.SqlClient                           6.1.2       6.1.2
    - > Microsoft.EntityFrameworkCore.Design               8.0.0       8.0.0
