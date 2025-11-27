@@ -49,6 +49,7 @@ namespace MyWebApp.Controllers
             return Ok(watch);
         }
 
+
         [HttpPost]
 
         public async Task<IActionResult> AddNewWatch([FromBody] dynamic body)
@@ -62,7 +63,7 @@ namespace MyWebApp.Controllers
                 WatchName = body.GetProperty("watchname").GetString(),
                 WatchBrand = body.GetProperty("watchbrand").GetString(),
                 Price = body.GetProperty("price").GetDecimal(),
-                Img = body.GetProperty("imgAdress").GetString() 
+                Img = body.GetProperty("imgAdress").GetString()
             };
 
             await _context.WatchesTable.AddAsync(newWatch);
@@ -86,9 +87,21 @@ namespace MyWebApp.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(watch);
-            
+
         }
 
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteById(Guid id)
+        {
+            var match = await _context.WatchesTable.FindAsync(id);
+
+            if (match == null) return NotFound();
+
+            _context.WatchesTable.Remove(match);
+            await _context.SaveChangesAsync();
+            return NoContent();
+
+        }   
 
     }
 }

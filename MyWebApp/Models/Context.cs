@@ -5,7 +5,6 @@ namespace MyWebApp.Models
     public class Context : DbContext
     {
         public Context(DbContextOptions<Context> options) : base(options) { }
-
         public DbSet<Watch> WatchesTable { get; set; }
         public DbSet<User> UsersTable { get; set; }
 
@@ -61,46 +60,46 @@ namespace MyWebApp.Models
                     Price = 28000m,
                     Img = "https://s3.us-east-1.amazonaws.com/ISHOWIMAGES/ROLEX+V7/wp/model_gallery_assets_portrait/Slide4_portrait/m126506-0001.webp"
                 },
-        new Watch
-        {
-            Id = Guid.Parse("2e0592bd-a5a4-485e-992d-9985ac0e3b57"),
-            WatchName = "Thin",
-            WatchBrand = "A. Lange & Söhne",
-            Price = 15999m,
-            Img = "https://img.chrono24.com/images/uhren/43258204-pk3j42yayatax2wodailsezm-ExtraLarge.jpg"
-        },
-        new Watch
-        {
-            Id = Guid.Parse("01706492-d963-4c7f-a069-9d80f42e203f"),
-            WatchName = "Seamaster Diver 300M",
-            WatchBrand = "Omega",
-            Price = 337m,
-            Img = "https://www.omegawatches.com/media/catalog/product/o/m/omega-seamaster-diver-300m-co-axial-master-chronometer-42-mm-21032422001005-2b286f.png?w=700"
-        },
-        new Watch
-        {
-            Id = Guid.Parse("5a2ec16c-d2a3-4023-a8bc-aaf12f6b0017"),
-            WatchName = "Triple Calendar Moon Phase Indicates week day month date and accurate moon phase",
-            WatchBrand = "Ernest Borel",
-            Price = 2450m,
-            Img = "https://img.chrono24.com/images/uhren/42798797-ultc6577p1gbjwgwgy79ogrh-ExtraLarge.jpg"
-        },
-        new Watch
-        {
-            Id = Guid.Parse("3f2b06b8-aebb-4866-a194-c93bd381f11b"),
-            WatchName = "Welder WRC407 45 mm Erkek Kol Saati",
-            WatchBrand = "WELDER",
-            Price = 8770m,
-            Img = "https://cdn.saatvesaat.com.tr/media/catalog/product/b/5/b5a02869a055070e6ed199509d879f19a4dd08cbeb488683f231fe5148fda3e0.jpeg"
-        },
-        new Watch
-        {
-            Id = Guid.Parse("58d1f733-7a74-4ec8-afcc-d67139db2846"),
-            WatchName = "De Cartier Large Silver Dial Stainless Steel WSSA0018 4072",
-            WatchBrand = "Cartier",
-            Price = 6895m,
-            Img = "https://i.ebayimg.com/images/g/IwEAAeSwQaJoyv-a/s-l1200.jpg"
-        });
+            new Watch
+            {
+                Id = Guid.Parse("2e0592bd-a5a4-485e-992d-9985ac0e3b57"),
+                WatchName = "Thin",
+                WatchBrand = "A. Lange & Söhne",
+                Price = 15999m,
+                Img = "https://img.chrono24.com/images/uhren/43258204-pk3j42yayatax2wodailsezm-ExtraLarge.jpg"
+            },
+            new Watch
+            {
+                Id = Guid.Parse("01706492-d963-4c7f-a069-9d80f42e203f"),
+                WatchName = "Seamaster Diver 300M",
+                WatchBrand = "Omega",
+                Price = 337m,
+                Img = "https://www.omegawatches.com/media/catalog/product/o/m/omega-seamaster-diver-300m-co-axial-master-chronometer-42-mm-21032422001005-2b286f.png?w=700"
+            },
+            new Watch
+            {
+                Id = Guid.Parse("5a2ec16c-d2a3-4023-a8bc-aaf12f6b0017"),
+                WatchName = "Triple Calendar Moon Phase Indicates week day month date and accurate moon phase",
+                WatchBrand = "Ernest Borel",
+                Price = 2450m,
+                Img = "https://img.chrono24.com/images/uhren/42798797-ultc6577p1gbjwgwgy79ogrh-ExtraLarge.jpg"
+            },
+            new Watch
+            {
+                Id = Guid.Parse("3f2b06b8-aebb-4866-a194-c93bd381f11b"),
+                WatchName = "Welder WRC407 45 mm Erkek Kol Saati",
+                WatchBrand = "WELDER",
+                Price = 8770m,
+                Img = "https://cdn.saatvesaat.com.tr/media/catalog/product/b/5/b5a02869a055070e6ed199509d879f19a4dd08cbeb488683f231fe5148fda3e0.jpeg"
+            },
+            new Watch
+            {
+                Id = Guid.Parse("58d1f733-7a74-4ec8-afcc-d67139db2846"),
+                WatchName = "De Cartier Large Silver Dial Stainless Steel WSSA0018 4072",
+                WatchBrand = "Cartier",
+                Price = 6895m,
+                Img = "https://i.ebayimg.com/images/g/IwEAAeSwQaJoyv-a/s-l1200.jpg"
+            });
         }
 
     }
