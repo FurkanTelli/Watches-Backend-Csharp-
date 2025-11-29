@@ -126,13 +126,41 @@ namespace MyWebApp.Controllers
         }
 
 
+        [HttpPut("updateUser/{id:guid}")]
+        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] dynamic body)
+        {
+            var match = await _context.UsersTable.FindAsync(id);
+            if (match == null) return NotFound();
 
+
+            match.UserName = body.GetProperty("userName").GetString();
+            match.UserEmail = body.GetProperty("userEmail").GetString();
+            match.UserPassword = body.GetProperty("password").GetString();
+
+            await _context.SaveChangesAsync();
+
+            return Ok(match);
+        }
 
 
         [HttpPost("logout")]
         public async Task<IActionResult> LogOut()
         {
             return Ok(new { message = "Logged out successfully" });
+        }
+
+
+
+        [HttpDelete("deleteUser/{id:guid}")]
+        public async Task<IActionResult> DeleteUser(Guid id)
+        {
+            var match = await _context.UsersTable.FindAsync(id);
+
+            if (match == null) return NotFound();
+
+            _context.UsersTable.Remove(match);
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
 
     }
