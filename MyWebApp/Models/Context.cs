@@ -26,10 +26,10 @@ namespace MyWebApp.Models
                 },
                 new User
                 {
-                    UserId = Guid.Parse("f30379bd-ee19-4582-a4ed-976841d89390"),
-                    UserName = "Furkan",
-                    UserEmail = "mfurkantelli@gmail.com",
-                    UserPassword = "26278367",
+                    UserId = Guid.Parse("16E762FA-6DB5-40FE-9F94-049F475AFC01"),
+                    UserName = "Random",
+                    UserEmail = "random@gmail.com",
+                    UserPassword = "random1234",
                     IsOnline = false
                 }
             );
