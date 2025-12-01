@@ -7,6 +7,7 @@ namespace MyWebApp.Models
         public Context(DbContextOptions<Context> options) : base(options) { }
         public DbSet<Watch> WatchesTable { get; set; }
         public DbSet<User> UsersTable { get; set; }
+        public DbSet<Orders> OrdersTable { get; set; }
 
 
 
@@ -100,6 +101,8 @@ namespace MyWebApp.Models
                 Price = 6895m,
                 Img = "https://i.ebayimg.com/images/g/IwEAAeSwQaJoyv-a/s-l1200.jpg"
             });
+
+            modelBuilder.Entity<Orders>().HasKey(o => o.OrderId);
         }
 
     }
