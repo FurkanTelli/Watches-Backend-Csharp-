@@ -60,17 +60,6 @@ namespace MyWebApp.Controllers
             string password = body.GetProperty("password").GetString();
 
 
-
-            // var user = await _context.UsersTable
-            //.Where(u => u.UserName == userName && u.UserEmail == email && u.UserPassword == password)
-            //.Select(u => new
-            //{
-            //    u.UserId,
-            //    u.UserName,
-            //    u.UserEmail
-            //})
-            //.FirstOrDefaultAsync();
-
             var user = await _context.UsersTable
                 .FirstOrDefaultAsync(u =>
                 u.UserName == userName &&
@@ -104,10 +93,16 @@ namespace MyWebApp.Controllers
 
 
             var isEmailExist = await _context.UsersTable.FirstOrDefaultAsync(u => u.UserEmail == email);
+            var isUsernameExist = await _context.UsersTable.FirstOrDefaultAsync(u => u.UserName == userName);
 
             if (isEmailExist != null)
             {
                 return BadRequest("Email is already in use");
+            }
+
+            if (isUsernameExist != null)
+            {
+                return BadRequest("Username is already in use");
             }
 
             var newUser = new User
