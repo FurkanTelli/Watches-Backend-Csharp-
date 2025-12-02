@@ -48,6 +48,19 @@ namespace MyWebApp.Controllers
             return Ok(new { message = "Orders added successfully" , ordersToAdd});
 
         }
+
+
+        [HttpPost("myOrders")]
+        public async Task<IActionResult> GetUserOrders([FromBody] JsonElement body)
+        {
+            string userId = body.GetProperty("userId").GetString();
+
+            var userOrders = _context.OrdersTable
+                .Where(o => o.UserId == userId)
+                .ToList();
+
+            return Ok(userOrders);
+        }
     }
 }
 
